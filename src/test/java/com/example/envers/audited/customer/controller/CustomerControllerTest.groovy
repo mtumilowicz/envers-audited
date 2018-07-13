@@ -1,18 +1,14 @@
 package com.example.envers.audited.customer.controller
 
 import com.example.envers.audited.customer.domain.CustomerDto
-import com.example.envers.audited.customer.service.CustomerRepository
 import com.example.envers.audited.customer.service.CustomerService
 import spock.lang.Specification
-
-import javax.persistence.EntityManager
 /**
  * Created by mtumilowicz on 2018-07-14.
  */
 class CustomerControllerTest extends Specification {
-
-    def repository = Mock(CustomerRepository)
-    def service = new CustomerService(repository, Mock(EntityManager))
+    
+    def service = Mock(CustomerService)
     def controller = new CustomerController(service)
     def dto = CustomerDto.builder().build()
 
