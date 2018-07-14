@@ -15,6 +15,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -87,18 +88,34 @@ public class CustomerControllerIntegrationTest {
         Long id = save.getId();
 
 //        and
-        Customer expected = new Customer(id, "editedFirstName", "editedLastName");
+        String editedFirstName = "editedFirstName";
+        String editedLastName = "editedLastName";
+
+//        and
+        Customer expected = new Customer(id, editedFirstName, editedLastName);
 
 //        when
         restTemplate.put(createURLWithPort("/customers/" + id), CustomerDto.builder()
-                .firstName("editedFirstName")
-                .lastName("editedLastName")
+                .firstName(editedFirstName)
+                .lastName(editedLastName)
                 .build());
 
 //        then
         Optional<Customer> byId = repository.findById(id);
         assertTrue(byId.isPresent());
         assertThat(expected, is(byId.get()));
+    }
+
+    @Test
+    public void update_notFound() {
+//        when
+        restTemplate.put(createURLWithPort("/customers/1"), CustomerDto.builder()
+                .firstName("editedFirstName")
+                .lastName("editedLastName")
+                .build());
+        
+//        then
+        assertThat(repository.findAll().size(), is(0));
     }
 
 
@@ -121,7 +138,7 @@ public class CustomerControllerIntegrationTest {
     }
 
     @Test
-    public void getHistoryById() {
+    public void getHistoryById_sizeCheck() {
 //        given
         Customer customer = repository.save(Customer.builder()
                 .firstName("firstName")
@@ -142,28 +159,50 @@ public class CustomerControllerIntegrationTest {
     }
 
     @Test
-    public void getHistoryById2() {
+    public void getHistoryById_elementCheck() {
 //        given
         Customer customer = repository.save(Customer.builder()
                 .firstName("firstName")
                 .lastName("lastName")
                 .build());
 
+        Long id = customer.getId();
+
 //        and
         customer.setFirstName("firstNameEdited");
+        
+//        and
+        Customer expected_customerHistory1 = Customer.builder()
+                .id(id)
+                .firstName("firstName")
+                .lastName("lastName")
+                .build();
 
+        Customer expected_customerHistory2 = Customer.builder()
+                .id(id)
+                .firstName("firstNameEdited")
+                .lastName("lastName")
+                .build();
+        
+//        and
+        List<Customer> expected_history = Arrays.asList(expected_customerHistory1, expected_customerHistory2);
+        
 //        and
         repository.save(customer);
 
+//        and
         ParameterizedTypeReference<List<Customer>> typeRef = new ParameterizedTypeReference<List<Customer>>() {
         };
 
-//        and
-        assertThat(restTemplate
-                .exchange(createURLWithPort("/customers/" + customer.getId() + "/history"),
+//        when
+        List<Customer> customerHistory = restTemplate
+                .exchange(createURLWithPort("/customers/" + id + "/history"),
                         HttpMethod.GET,
                         null,
-                        typeRef).getBody().size(), is(2));
+                        typeRef).getBody();
+        
+//        then
+        assertThat(customerHistory, is(expected_history));
     }
 
 
