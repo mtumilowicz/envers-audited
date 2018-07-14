@@ -43,6 +43,10 @@ public class CustomerService {
         repository.save(one);
     }
     
+    public void deleteById(@NotNull Long id) {
+        repository.deleteById(id);
+    }
+    
     public List<Customer> getHistory(@NotNull Long id) {
         AuditReader auditReader = AuditReaderFactory.get(entityManager);
         List<Number> revisions = ListUtils.emptyIfNull(auditReader.getRevisions(Customer.class, id));

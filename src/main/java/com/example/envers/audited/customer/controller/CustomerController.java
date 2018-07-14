@@ -40,4 +40,9 @@ public class CustomerController {
     public List<Customer> getHistoryById(@PathVariable("id") Long id) {
         return service.getHistory(id);
     }
+    
+    @DeleteMapping("customers/{id}")
+    public void deleteById(@PathVariable("id") Long id) {
+        service.deleteById(id);
+    }
 }

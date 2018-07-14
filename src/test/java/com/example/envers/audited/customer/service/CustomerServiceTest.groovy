@@ -42,16 +42,24 @@ class CustomerServiceTest extends Specification {
 
     def "test findPersonById"() {
         given:
+        def customer = Customer.builder()
+                .id(1)
+                .firstName("firstName")
+                .lastName("lastName")
+                .build()
+
         def repository = Mock(CustomerRepository)
 
         and:
         def service = new CustomerService(repository, Mock(EntityManager))
 
         when:
-        def notFound = service.findById(1)
+        def found = service.findById(1)
 
         then:
-        1 * repository.findById(1)
+        1 * repository.findById(1) >> Optional.of(customer)
+        found.isPresent()
+        found.get() == customer
     }
 
     def "test findPersonById - notFound"() {
@@ -141,13 +149,31 @@ class CustomerServiceTest extends Specification {
         _firstNameDto  | _lastNameDto  | _firstName  | _lastName
         "firstNameDto" | "lastNameDto" | "firstName" | "lastName"
     }
-//
+
 //    def "test getHistory"() {
 //        given:
+//        def repository = Mock(CustomerRepository)
 //
+//        and:
+//        def service = new CustomerService(repository, Mock(EntityManager))
+//        
 //        when:
-//        // TODO implement stimulus
+//        service.getHistory(1)
+//        
 //        then:
-//        // TODO implement assertions
 //    }
+
+    def "test delete"() {
+        given:
+        def repository = Mock(CustomerRepository)
+
+        and:
+        def service = new CustomerService(repository, Mock(EntityManager))
+
+        when:
+        service.deleteById(1)
+
+        then:
+        1 * repository.deleteById(1)
+    }
 }
