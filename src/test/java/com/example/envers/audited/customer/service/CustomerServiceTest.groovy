@@ -1,11 +1,9 @@
 package com.example.envers.audited.customer.service
 
+import com.example.envers.audited.customer.audit.CustomerHistoryRepository
 import com.example.envers.audited.customer.domain.Customer
 import com.example.envers.audited.customer.domain.CustomerDto
 import spock.lang.Specification
-
-import javax.persistence.EntityManager
-
 /**
  * Created by mtumilowicz on 2018-07-13.
  */
@@ -15,7 +13,7 @@ class CustomerServiceTest extends Specification {
         def repository = Mock(CustomerRepository)
 
         and:
-        def service = new CustomerService(repository, Mock(EntityManager))
+        def service = new CustomerService(repository, Mock(CustomerHistoryRepository))
 
         and:
         def customer = new Customer(
@@ -51,7 +49,7 @@ class CustomerServiceTest extends Specification {
         def repository = Mock(CustomerRepository)
 
         and:
-        def service = new CustomerService(repository, Mock(EntityManager))
+        def service = new CustomerService(repository, Mock(CustomerHistoryRepository))
 
         when:
         def found = service.findById(1)
@@ -69,7 +67,7 @@ class CustomerServiceTest extends Specification {
         }
 
         and:
-        def service = new CustomerService(repository, Mock(EntityManager))
+        def service = new CustomerService(repository, Mock(CustomerHistoryRepository))
 
         when:
         def notFound = service.findById(1)
@@ -92,7 +90,7 @@ class CustomerServiceTest extends Specification {
         }
 
         and:
-        def service = new CustomerService(repository, Mock(EntityManager))
+        def service = new CustomerService(repository, Mock(CustomerHistoryRepository))
 
         when:
         def found = service.findById(1)
@@ -107,7 +105,7 @@ class CustomerServiceTest extends Specification {
         def repository = Mock(CustomerRepository)
 
         and:
-        def service = new CustomerService(repository, Mock(EntityManager))
+        def service = new CustomerService(repository, Mock(CustomerHistoryRepository))
 
         when:
         service.findAll()
@@ -131,7 +129,7 @@ class CustomerServiceTest extends Specification {
         }
 
         and:
-        def service = new CustomerService(repository, Mock(EntityManager))
+        def service = new CustomerService(repository, Mock(CustomerHistoryRepository))
 
         and:
         def dto = CustomerDto.builder()
@@ -155,7 +153,7 @@ class CustomerServiceTest extends Specification {
 //        def repository = Mock(CustomerRepository)
 //
 //        and:
-//        def service = new CustomerService(repository, Mock(EntityManager))
+//        def service = new CustomerService(repository, Mock(CustomerRevisionRepository))
 //        
 //        when:
 //        service.getHistory(1)
@@ -168,7 +166,7 @@ class CustomerServiceTest extends Specification {
         def repository = Mock(CustomerRepository)
 
         and:
-        def service = new CustomerService(repository, Mock(EntityManager))
+        def service = new CustomerService(repository, Mock(CustomerHistoryRepository))
 
         when:
         service.deleteById(1)
