@@ -1,4 +1,4 @@
-package com.example.envers.audited.customer.service;
+package com.example.envers.audited.customer.repository;
 
 import com.example.envers.audited.customer.domain.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;

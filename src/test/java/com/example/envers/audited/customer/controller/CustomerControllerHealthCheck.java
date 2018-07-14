@@ -76,6 +76,11 @@ public class CustomerControllerHealthCheck {
                 is(HttpStatus.OK));
     }
 
+    @Test
+    public void deleteById() {
+        restTemplate.delete(createURLWithPort("/customers/1"));
+    }
+
 
     private String createURLWithPort(String uri) {
         return "http://localhost:" + port + uri;

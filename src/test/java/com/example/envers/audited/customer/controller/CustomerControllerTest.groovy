@@ -79,4 +79,12 @@ class CustomerControllerTest extends Specification {
         then:
         1 * service.getHistory(1)
     }
+    
+    def "deleteById"() {
+        when:
+        controller.deleteById(1)
+
+        then:
+        1 * service.deleteById(1)
+    }
 }

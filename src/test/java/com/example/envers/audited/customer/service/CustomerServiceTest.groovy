@@ -1,8 +1,9 @@
 package com.example.envers.audited.customer.service
 
-import com.example.envers.audited.customer.audit.CustomerHistoryRepository
+import com.example.envers.audited.customer.audit.repository.CustomerHistoryRepository
 import com.example.envers.audited.customer.domain.Customer
 import com.example.envers.audited.customer.domain.CustomerDto
+import com.example.envers.audited.customer.repository.CustomerRepository
 import spock.lang.Specification
 /**
  * Created by mtumilowicz on 2018-07-13.
@@ -147,19 +148,20 @@ class CustomerServiceTest extends Specification {
         _firstNameDto  | _lastNameDto  | _firstName  | _lastName
         "firstNameDto" | "lastNameDto" | "firstName" | "lastName"
     }
+    
+    def "test getHistory"() {
+        given:
+        def historyRepository = Mock(CustomerHistoryRepository)
 
-//    def "test getHistory"() {
-//        given:
-//        def repository = Mock(CustomerRepository)
-//
-//        and:
-//        def service = new CustomerService(repository, Mock(CustomerRevisionRepository))
-//        
-//        when:
-//        service.getHistory(1)
-//        
-//        then:
-//    }
+        and:
+        def service = new CustomerService(Mock(CustomerRepository), historyRepository)
+
+        when:
+        service.getHistory(1)
+
+        then:
+        1 * historyRepository.getHistory(1)
+    }
 
     def "test delete"() {
         given:

@@ -2,7 +2,7 @@ package com.example.envers.audited.customer.controller;
 
 import com.example.envers.audited.customer.domain.Customer;
 import com.example.envers.audited.customer.domain.CustomerDto;
-import com.example.envers.audited.customer.service.CustomerRepository;
+import com.example.envers.audited.customer.repository.CustomerRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -203,6 +203,23 @@ public class CustomerControllerIntegrationTest {
         
 //        then
         assertThat(customerHistory, is(expected_history));
+    }
+    
+    @Test
+    public void deleteById() {
+//        given
+        Customer customer = repository.save(Customer.builder()
+                .firstName("firstName")
+                .lastName("lastName")
+                .build());
+
+        Long id = customer.getId();
+        
+//        when
+        restTemplate.delete(createURLWithPort("/customers/" + id));
+        
+//        then
+        assertThat(repository.findAll().size(), is(0));
     }
 
 
