@@ -4,6 +4,7 @@ import com.example.envers.audited.customer.domain.Customer;
 import com.example.envers.audited.customer.domain.CustomerAssembler;
 import com.example.envers.audited.customer.domain.CustomerDto;
 import lombok.AllArgsConstructor;
+import org.apache.commons.collections4.ListUtils;
 import org.hibernate.envers.AuditReader;
 import org.hibernate.envers.AuditReaderFactory;
 import org.springframework.stereotype.Service;
@@ -44,11 +45,10 @@ public class CustomerService {
     
     public List<Customer> getHistory(@NotNull Long id) {
         AuditReader auditReader = AuditReaderFactory.get(entityManager);
-        List<Number> revisions = auditReader
-                .getRevisions(Customer.class, id);
+        List<Number> revisions = ListUtils.emptyIfNull(auditReader.getRevisions(Customer.class, id));
 
-        List<Customer> history = revisions.stream().map(rev -> auditReader.find(Customer.class, id, rev)).collect(Collectors.toList());
-
-        return history;
+        return revisions.stream()
+                .map(rev -> auditReader.find(Customer.class, id, rev))
+                .collect(Collectors.toList());
     }
 }

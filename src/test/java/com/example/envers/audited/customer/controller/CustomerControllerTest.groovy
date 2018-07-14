@@ -1,13 +1,15 @@
 package com.example.envers.audited.customer.controller
 
+import com.example.envers.audited.customer.domain.Customer
 import com.example.envers.audited.customer.domain.CustomerDto
 import com.example.envers.audited.customer.service.CustomerService
 import spock.lang.Specification
+
 /**
  * Created by mtumilowicz on 2018-07-14.
  */
 class CustomerControllerTest extends Specification {
-    
+
     def service = Mock(CustomerService)
     def controller = new CustomerController(service)
     def dto = CustomerDto.builder().build()
@@ -17,7 +19,7 @@ class CustomerControllerTest extends Specification {
         controller.save(dto)
 
         then:
-        1 * service.save(_)
+        1 * service.save(dto)
     }
 
     def "findAll"() {
@@ -33,9 +35,43 @@ class CustomerControllerTest extends Specification {
         controller.update(dto, 1)
 
         then:
-        1 * service.update(_, 1)
+        1 * service.update(dto, 1)
     }
-    
+
+    def "findPersonById - found"() {
+        given:
+        def customer = new Customer(
+                firstName: _firstName,
+                lastName: _lastName
+        )
+
+        when:
+        def found = controller.findPersonById(1)
+
+        then:
+        1 * service.findById(1) >> Optional.of(customer)
+
+        and:
+        found
+        with(found) {
+            firstName == _firstName
+            lastName == _lastName
+        }
+
+        where:
+        _firstName  | _lastName
+        "firstName" | "lastName"
+    }
+
+    def "findPersonById - notFound"() {
+        when:
+        def notFound = controller.findPersonById(1)
+
+        then:
+        1 * service.findById(1) >> Optional.empty()
+        !notFound
+    }
+
     def "getHistoryById"() {
         when:
         controller.getHistoryById(1)
