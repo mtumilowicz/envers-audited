@@ -6,29 +6,26 @@ _Reference_: [JBoss documentation](https://docs.jboss.org/envers/docs/)
 _Reference_: [Hibernate envers tutorial](https://www.thoughts-on-java.org/hibernate-envers-getting-started/)  
 
 # preface
-The `Envers` project aims to enable easy auditing of persistent classes. All that you have to do is annotate 
-your persistent class or some of its properties, that you want to audit, with @Audited. For each audited 
-entity, a table will be created, which will hold the history of changes made to the entity. You can then 
-retrieve and query historical data without much effort. Basically, one transaction is one revision. 
-As the revisions are global, having a revision number, you can query for various entities at that 
-revision, retrieving a (partial) view of the database at that revision. You can find a revision number 
-having a date, and the other way round, you can get the date at which a revision was commited.
-
-# setup
 You just need to add the `hibernate-envers.jar` file to the classpath of your application and annotate 
 your entities with `@Audited`. Hibernate will then create a new revision for each transaction and create 
 a new record in the audit table for each **create**, **update** or **delete** operation performed on an 
 audited entity.
 
-```
-<dependency>
-    <groupId>org.hibernate</groupId>
-    <artifactId>hibernate-envers</artifactId>
-    <version>5.3.2.Final</version>
-</dependency>
-```
+You can then retrieve and query historical data without much effort. Basically, one transaction is one 
+revision. As the revisions are global, having a revision number, you can query for various entities at that 
+revision, retrieving a (partial) view of the database at that revision. You can find a revision number 
+having a date, and the other way round, you can get the date at which a revision was commited.
 
 # manual
+* `pom.xml`
+    ```
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-envers</artifactId>
+        <version>5.3.2.Final</version>
+    </dependency>
+    ```
+    
 * annotate entity with `@Audited`
     ```
     @Entity
@@ -59,17 +56,18 @@ audited entity.
     )
     ```
     The `REVTYPE` column value is taken from the `RevisionType` `Enum`.
+    
+        | Database column value | RevisionType
+        | ----------------------|-------------
+        | 0                     | ADD
+        | 1                     | MOD
+        | 2                     | DEL
+        
     * **ADD** - indicates that the entity was added (persisted) at that revision.
     * **DEL** - indicates that the entity was deleted (removed) at that revision.
     * **MOD** - indicates that the entity was modified (one or more of its fields) at that revision.
     
-    | Database column value | RevisionType
-    | ----------------------|-------------
-    | 0                     | ADD
-    | 1                     | MOD
-    | 2                     | DEL
-    
-* accessing history
+* accessing history  
     You can access the audit (history) of an entity using the `AuditReader` interface, which you can 
     obtain when having an open `EntityManager`:
     ```
