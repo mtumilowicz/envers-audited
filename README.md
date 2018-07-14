@@ -4,6 +4,7 @@ The main goal of this project is to explore basic features of `@Audited` from `H
 _Reference_: [UserGuide documentation](http://docs.jboss.org/hibernate/orm/current/userguide/html_single/Hibernate_User_Guide.html#envers)  
 _Reference_: [JBoss documentation](https://docs.jboss.org/envers/docs/)  
 _Reference_: [Hibernate envers tutorial](https://www.thoughts-on-java.org/hibernate-envers-getting-started/)  
+_Reference_: [Spring Boot rest integration testing](http://www.springboottutorial.com/integration-testing-for-spring-boot-rest-services)
 
 # preface
 You just need to add the `hibernate-envers.jar` file to the classpath of your application and annotate 
@@ -86,3 +87,17 @@ having a date, and the other way round, you can get the date at which a revision
     ```
     Map<Number, Date> revisionDatesMap = revisions.stream().collect(Collectors.toMap(Function.identity(), auditReader::getRevisionDate));
     ```
+# tests
+Tests are divided in three sections:
+* junit (`Spock`)
+    * `Controller`
+    * `Service`
+* functional (`Spock`):
+    * `Controller` <-> `Service` (Mock)
+    * `Service` <-> `Repository` (Mock)
+* health-check
+    * `Controller`
+* integration
+    * `Controller` <-> `database`
+    
+**Coverage**: `95%`
