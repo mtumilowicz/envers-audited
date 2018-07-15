@@ -93,8 +93,8 @@ Tests are divided in three sections:
     * `Controller`
     * `Service`
 * functional (`Spock`):
-    * `Controller` <-> `Service` (Mock)
-    * `Service` <-> `Repository` (Mock)
+    * `Controller` <-> `Mock(Service)`
+    * `Service` <-> `Mock(Repository)`
 * health-check (`TestRestTemplate`, `jUnit`)
     * `Controller`
 * integration (`TestRestTemplate`, `jUnit`)
