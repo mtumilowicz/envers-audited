@@ -87,6 +87,10 @@ having a date, and the other way round, you can get the date at which a revision
     ```
     Map<Number, Date> revisionDatesMap = revisions.stream().collect(Collectors.toMap(Function.identity(), auditReader::getRevisionDate));
     ```
+    
+* get `Customer` with `id` at revision `rev`
+    ```auditReader.find(Customer.class, id, rev)```
+    
 # tests
 Tests are divided in three sections:
 * junit (`Spock`)
