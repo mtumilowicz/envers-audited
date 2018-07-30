@@ -1,9 +1,10 @@
 package com.example.envers.audited.customer.service
 
-import com.example.envers.audited.customer.audit.repository.CustomerHistoryRepository
-import com.example.envers.audited.customer.domain.Customer
-import com.example.envers.audited.customer.domain.CustomerDto
-import com.example.envers.audited.customer.repository.CustomerRepository
+import com.example.envers.audited.domain.customer.history.repository.CustomerHistoryRepository
+import com.example.envers.audited.domain.customer.model.Customer
+import com.example.envers.audited.domain.customer.service.CustomerService
+import com.example.envers.audited.rest.customer.controller.dto.CustomerDto
+import com.example.envers.audited.infrastructure.repository.CustomerRepository
 import spock.lang.Specification
 /**
  * Created by mtumilowicz on 2018-07-13.

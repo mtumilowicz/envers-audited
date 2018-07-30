@@ -1,7 +1,7 @@
-package com.example.envers.audited.customer.audit.repository;
+package com.example.envers.audited.domain.customer.history.repository;
 
-import com.example.envers.audited.customer.audit.CustomerAuditReader;
-import com.example.envers.audited.customer.domain.Customer;
+import com.example.envers.audited.infrastructure.audit.reader.CustomerAuditReader;
+import com.example.envers.audited.domain.customer.model.Customer;
 import lombok.AllArgsConstructor;
 import org.apache.commons.collections4.ListUtils;
 import org.hibernate.envers.AuditReader;

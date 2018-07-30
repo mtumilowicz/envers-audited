@@ -1,10 +1,10 @@
-package com.example.envers.audited.customer.service;
+package com.example.envers.audited.domain.customer.service;
 
-import com.example.envers.audited.customer.audit.repository.CustomerHistoryRepository;
-import com.example.envers.audited.customer.domain.Customer;
-import com.example.envers.audited.customer.domain.CustomerAssembler;
-import com.example.envers.audited.customer.domain.CustomerDto;
-import com.example.envers.audited.customer.repository.CustomerRepository;
+import com.example.envers.audited.domain.customer.history.repository.CustomerHistoryRepository;
+import com.example.envers.audited.domain.customer.model.Customer;
+import com.example.envers.audited.rest.customer.controller.assembler.CustomerAssembler;
+import com.example.envers.audited.rest.customer.controller.dto.CustomerDto;
+import com.example.envers.audited.infrastructure.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

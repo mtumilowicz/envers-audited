@@ -1,4 +1,4 @@
-package com.example.envers.audited;
+package com.example.envers.audited.infrastructure.swagger;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

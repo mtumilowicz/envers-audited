@@ -1,4 +1,4 @@
-package com.example.envers.audited.customer.domain;
+package com.example.envers.audited.domain.customer.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

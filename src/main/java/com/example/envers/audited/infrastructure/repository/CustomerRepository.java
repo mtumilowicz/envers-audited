@@ -1,6 +1,6 @@
-package com.example.envers.audited.customer.repository;
+package com.example.envers.audited.infrastructure.repository;
 
-import com.example.envers.audited.customer.domain.Customer;
+import com.example.envers.audited.domain.customer.model.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

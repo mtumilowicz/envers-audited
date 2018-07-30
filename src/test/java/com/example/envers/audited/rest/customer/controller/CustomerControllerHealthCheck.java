@@ -1,7 +1,7 @@
-package com.example.envers.audited.customer.controller;
+package com.example.envers.audited.rest.customer.controller;
 
-import com.example.envers.audited.customer.domain.Customer;
-import com.example.envers.audited.customer.domain.CustomerDto;
+import com.example.envers.audited.domain.customer.model.Customer;
+import com.example.envers.audited.rest.customer.controller.dto.CustomerDto;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

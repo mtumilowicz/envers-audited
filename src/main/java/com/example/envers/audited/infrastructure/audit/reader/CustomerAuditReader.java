@@ -1,4 +1,4 @@
-package com.example.envers.audited.customer.audit;
+package com.example.envers.audited.infrastructure.audit.reader;
 
 import lombok.AllArgsConstructor;
 import org.hibernate.envers.AuditReader;

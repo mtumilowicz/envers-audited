@@ -1,4 +1,4 @@
-package com.example.envers.audited.customer.domain;
+package com.example.envers.audited.rest.customer.controller.dto;
 
 import lombok.Builder;
 import lombok.Value;

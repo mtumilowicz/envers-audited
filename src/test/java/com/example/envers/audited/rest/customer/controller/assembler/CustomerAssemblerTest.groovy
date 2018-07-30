@@ -1,5 +1,8 @@
-package com.example.envers.audited.customer.domain
+package com.example.envers.audited.rest.customer.controller.assembler
 
+import com.example.envers.audited.domain.customer.model.Customer
+import com.example.envers.audited.rest.customer.controller.assembler.CustomerAssembler
+import com.example.envers.audited.rest.customer.controller.dto.CustomerDto
 import spock.lang.Specification
 
 /**
