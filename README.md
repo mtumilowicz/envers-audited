@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/mtumilowicz/envers-audited.svg?branch=master)](https://travis-ci.com/mtumilowicz/envers-audited)
+
 # envers-audited
 The main goal of this project is to explore basic features of `@Audited` from `Hibernate Envers`.
 
