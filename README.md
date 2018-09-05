@@ -19,6 +19,19 @@ revision. As the revisions are global, having a revision number, you can query f
 revision, retrieving a (partial) view of the database at that revision. You can find a revision number 
 having a date, and the other way round, you can get the date at which a revision was commited.
 
+# details
+* RevisionEntity
+
+    |ID   |TIMESTAMP   |ADDITIONAL FIELD (ex. LOGIN)   |
+    |---|---|---|
+    |...   |...   |...   |
+
+* Audit table
+
+    |ID OF SOURCE  |REV (ID FROM REVENTITY)   |REVTYPE   | CUSTOM FIELDS   |
+    |---|---|---|---|
+    |...   |...   |...   |...   |
+
 # manual
 * `pom.xml`
     ```
