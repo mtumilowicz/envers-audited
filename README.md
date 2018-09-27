@@ -20,7 +20,7 @@ revision, retrieving a (partial) view of the database at that revision. You can 
 having a date, and the other way round, you can get the date at which a revision was commited.
 
 # details
-* RevisionEntity
+* RevisionEntity (`REVENTITY`)
 
     |ID   |TIMESTAMP   |ADDITIONAL FIELD (ex. LOGIN)   |
     |---|---|---|
@@ -85,7 +85,7 @@ having a date, and the other way round, you can get the date at which a revision
     
 * accessing history  
     You can access the audit (history) of an entity using the `AuditReader` interface, which you can 
-    obtain when having an open `EntityManager`:
+    obtain from an open `EntityManager`:
     ```
     AuditReader reader = AuditReaderFactory.get(entityManager);
     Customer oldCustomer = auditReader.find(Customer.class, customerId, rev)
@@ -104,7 +104,9 @@ having a date, and the other way round, you can get the date at which a revision
     ```
     
 * get `Customer` with `id` at revision `rev`
-    ```auditReader.find(Customer.class, id, rev)```
+    ```
+    auditReader.find(Customer.class, id, rev)
+    ```
     
 # tests
 Tests are divided in three sections:
